@@ -4,7 +4,7 @@ import zipfile
 from pathlib import Path
 
 #TODO: Add support for non-kaggle datasets
-#TODO: fix error handling and exceptions
+#TODO: Add function to unzip dataset.zip file
 script_location = Path(__file__).resolve().parent
 parent_folder = script_location.parent
 
