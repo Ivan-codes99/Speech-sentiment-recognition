@@ -1,7 +1,71 @@
 # Speech Sentiment Recognition
 
-This project focuses on speech sentiment recognition using machine learning. The goal is to classify audio files into different speech sentiment categories based on extracted features. As the project progresses this README file will be updated.
+A small research / prototyping project for extracting audio features from speech and training models to predict emotional sentiment. The repository contains scripts for downloading datasets (Kaggle), extracting features with librosa, assembling features into training sets, and example notebooks that explore models (CNN, Random Forest, Naive Bayes).
 
-## Modularity
+## Repository layout
 
-As development continues I will be focusing on streamlining the model development based on the RAVDESS dataset on kaggle. However I will modularize my code wherever possible for later re-use on different datasets.
+- `scripts/` - Utility and pipeline scripts
+  - `dataset_downloader.py` - Download Kaggle datasets (requires `kaggle` CLI and `kaggle.json`).
+  - `feature_extraction.py` - (TODO) extract features from audio files using `librosa`.
+  - `data_loader.py` - (TODO) load and preprocess extracted features (uses `pandas`, `librosa`).
+  - `train.py` - (TODO) training entrypoint for model training.
+  - `evaluate.py` - (TODO) evaluation helpers for trained models.
+  - `testing.py` - small test script that calls the downloader.
+
+- `notebooks/` - Jupyter notebooks used for exploration and model experiments
+  - `ESRmodels.ipynb` - Feature extraction, model training (CNN, Random Forest, Naive Bayes), plots and evaluation code.
+  - `data_exploration.ipynb` - (exploratory analysis notebook)
+
+- `graphics/` - Generated plots (violin plots and others): `mfccs_variance_plot.png`, `rms_energy_plot.png`, `tonnetz_variance_plot.png`.
+
+## Key notes
+
+- The codebase is a work-in-progress. Several `TODO` notes exist across scripts. The notebooks contain the most complete pipeline for feature extraction and model experiments.
+- `dataset_downloader.py` expects the Kaggle CLI to be installed and configured. Put your `kaggle.json` in `%USERPROFILE%\.kaggle\kaggle.json` on Windows.
+
+## Quickstart
+
+1. Create a Python virtual environment and activate it.
+
+   PowerShell (Windows):
+
+   ```powershell
+   python -m venv .venv; .\.venv\Scripts\Activate.ps1
+   ```
+
+2. Install dependencies:
+
+   ```powershell
+   pip install -r requirements.txt
+   ```
+
+3. (Optional) Configure Kaggle credentials to download datasets from Kaggle:
+
+   - Install Kaggle CLI: `pip install kaggle` (or use `pip install -r requirements.txt`).
+   - Place your `kaggle.json` in `%USERPROFILE%\.kaggle\kaggle.json`.
+
+4. Download a dataset (example used in `testing.py` - RAVDESS):
+
+   ```powershell
+   python scripts\dataset_downloader.py
+   ```
+
+   Or call the function from Python:
+
+   ```python
+   from scripts import dataset_downloader
+   dataset_downloader.download_kaggle_dataset("uwrfkaggler/ravdess-emotional-speech-audio")
+   ```
+
+5. Open `notebooks/ESRmodels.ipynb` in Jupyter Lab / Notebook and run the cells to extract features, train and evaluate models. The notebook expects a `Dataset` directory structured with subfolders per actor (as in RAVDESS) containing `.wav` files.
+
+## Dependencies
+
+The minimal dependencies inferred from the code and notebooks are listed in `requirements.txt`. Key packages:
+
+- numpy, pandas
+- librosa (audio feature extraction)
+- scikit-learn (classic ML models)
+- tensorflow and keras (deep learning models present in notebooks)
+- matplotlib, seaborn (plots)
+- kaggle (optional, for `dataset_downloader`)
